@@ -6,7 +6,7 @@ package nguyenbao.beerthekiwi;
 public class BreweryLocation {
 
     //states of location
-    private String mStreetAdress;
+    private String mStreetAddress;
     private String mLocality;
     private String mRegion;
     private String mPostalCode;
@@ -21,7 +21,7 @@ public class BreweryLocation {
     public BreweryLocation(String streetAddress, String locality, String region,String postalCode,
                            String countryName, double longitude, double latitude){
 
-        mStreetAdress = streetAddress;
+        mStreetAddress = streetAddress;
         mLocality = locality;
         mRegion = region;
         mPostalCode = postalCode;
@@ -30,8 +30,8 @@ public class BreweryLocation {
         mLatitude = latitude;
     }
 
-    public String getStreetAdress() {
-        return mStreetAdress;
+    public String getStreetAddress() {
+        return mStreetAddress;
     }
 
     public String getLocality() {
