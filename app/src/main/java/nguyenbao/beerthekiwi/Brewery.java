@@ -12,9 +12,14 @@ public class Brewery {
     private String mDescription;
     private String mWebsite;
     private String mDateOfEstablishment;
+    private String mTestData;
 
     public Brewery(){
         //empty constructor
+    }
+
+    public Brewery(String testData){
+        mTestData = testData;
     }
 
     public Brewery(BreweryLocation breweryLocation, String name, String description,
@@ -45,5 +50,9 @@ public class Brewery {
 
     public String getDateOfEstablishment() {
         return mDateOfEstablishment;
+    }
+
+    public String getTestData() {
+        return mTestData;
     }
 }

@@ -10,7 +10,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Main Activity will launch a fragment that will accept User inputs
-        //set view to be a fragment container
+        //Main Activity will launch a fragment that displays a listView of all breweries
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_fragment_container, new BreweriesFragment())
+                    .commit();
+        }
     }
 }
