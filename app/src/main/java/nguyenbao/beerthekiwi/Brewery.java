@@ -7,8 +7,7 @@ public class Brewery {
 
     //global variables to store states of a brewery
 
-    //location object
-
+    private BreweryLocation mBreweryLocation;
     private String mName;
     private String mDescription;
     private String mWebsite;
@@ -18,7 +17,9 @@ public class Brewery {
         //empty constructor
     }
 
-    public Brewery(String name, String description, String website, String dateOfEstablishment){
+    public Brewery(BreweryLocation breweryLocation, String name, String description,
+                   String website, String dateOfEstablishment){
+        mBreweryLocation = breweryLocation;
         mName = name;
         mDescription = description;
         mWebsite = website;
@@ -26,6 +27,9 @@ public class Brewery {
     }
 
     //get methods for Brewery states
+    public BreweryLocation getBreweryLocation() {
+        return mBreweryLocation;
+    }
 
     public String getName() {
         return mName;
