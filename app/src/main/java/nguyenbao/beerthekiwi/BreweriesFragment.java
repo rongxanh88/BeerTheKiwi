@@ -30,6 +30,9 @@ public class BreweriesFragment extends Fragment
     private static final String TEST_URL = "http://api.brewerydb.com/v2/locations/?" +
             "key=c1ecd34119b27016f28060879cbc13e0&format=json&locality=Boulder&countryIsoCode=US";
 
+    private ListView mListView;
+    private ArrayAdapter<Brewery> mBreweryArrayAdapter;
+
     public BreweriesFragment() {
         // Required empty public constructor
     }
@@ -57,15 +60,15 @@ public class BreweriesFragment extends Fragment
             Log.e(LOG_TAG, "No Network Connectivity");
         }
 
-//        //create adapterview for breweries
-//        ArrayAdapter<Brewery> itemsAdapter = new ArrayAdapter<Brewery>
-//                (getActivity(), android.R.layout.simple_list_item_1, breweries);
-//
-//        //set arraylist into adapterview
-//        ListView listView = (ListView)rootview.findViewById(R.id.brewery_list_view);
-//
-//        //bind adapterview to root view
-//        listView.setAdapter(itemsAdapter);
+        //create adapterview for breweries
+        mBreweryArrayAdapter = new ArrayAdapter<Brewery>
+                (getActivity(), android.R.layout.simple_list_item_1, breweries);
+
+        //set arraylist into adapterview
+        mListView = (ListView)rootview.findViewById(R.id.brewery_list_view);
+
+        //bind adapterview to root view
+        mListView.setAdapter(mBreweryArrayAdapter);
 
         return rootview;
     }
@@ -77,11 +80,12 @@ public class BreweriesFragment extends Fragment
 
     @Override
     public void onLoadFinished(Loader<List<Brewery>> loader, List<Brewery> data) {
-
+        mBreweryArrayAdapter.clear();
+        mBreweryArrayAdapter.addAll(data);
     }
 
     @Override
     public void onLoaderReset(Loader<List<Brewery>> loader) {
-
+        mBreweryArrayAdapter.clear();
     }
 }
