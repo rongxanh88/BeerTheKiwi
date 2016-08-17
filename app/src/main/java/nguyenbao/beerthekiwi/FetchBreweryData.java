@@ -23,7 +23,7 @@ public class FetchBreweryData {
 
     private static final String LOG_TAG = FetchBreweryData.class.getName();
 
-    private FetchBreweryData(){
+    private FetchBreweryData() {
         //empty constructor so this cannot be instatiated
     }
 
@@ -55,7 +55,6 @@ public class FetchBreweryData {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-
             //Convert JSON_RESPONSE String into a JSONObject
             JSONObject reader = new JSONObject(jsonString);
 
@@ -63,43 +62,77 @@ public class FetchBreweryData {
             JSONArray data = reader.getJSONArray("data");
 
             //loop through every object in data array
-            for (int i = 0; i < data.length(); i++){
+            for (int i = 0; i < data.length(); i++) {
+                //initialize local variables to empty strings
+                String streetAddress = "";
+                String locality = "";
+                String region = "";
+                String postalCode = "";
+                String countryName = "";
+                double longitude = 0.0;
+                double latitude = 0.0;
+
                 //grab object at position i
                 JSONObject brewery = data.getJSONObject(i);
 
                 //grab location data
-                String streetAddress = brewery.getString("streetAddress");
-                String locality = brewery.getString("locality");
-                String region = brewery.getString("region");
-                String postalCode = brewery.getString("postalCode");
+                if (brewery.has("streetAddress")) {
+                    streetAddress = brewery.getString("streetAddress");
+                }
+                if (brewery.has("locality")) {
+                    locality = brewery.getString("locality");
+                }
+                if (brewery.has("region")) {
+                    region = brewery.getString("region");
+                }
+                if (brewery.has("postalCode")) {
+                    postalCode = brewery.getString("postalCode");
+                }
                 JSONObject country = brewery.getJSONObject("country");
-                String countryName = country.getString("displayName");
-                double longitude = brewery.getDouble("longitude");
-                double latitude = brewery.getDouble("latitude");
+                if (country.has("displayName")) {
+                    countryName = country.getString("displayName");
+                }
+                if (brewery.has("longitude")) {
+                    longitude = brewery.getDouble("longitude");
+                }
+                if (brewery.has("latitude")) {
+                    latitude = brewery.getDouble("latitude");
+                }
 
                 //create location object with all location data
                 BreweryLocation breweryLocation = new BreweryLocation(
                         streetAddress, locality, region, postalCode, countryName,
                         longitude, latitude);
 
+                //initialize data to empty strings
+                String name = "";
+                String description = "";
+                String website = "";
+                String dateOfEstablish = "";
+
                 //grab brewery data
                 JSONObject breweryDetails = brewery.getJSONObject("brewery");
-                String name = breweryDetails.getString("name");
-                String description = breweryDetails.getString("description");
-                String website = breweryDetails.getString("website");
-                String dateOfEstablish = breweryDetails.getString("established");
+                if (breweryDetails.has("name")) {
+                    name = breweryDetails.getString("name");
+                }
+                if (breweryDetails.has("description")) {
+                    description = breweryDetails.getString("description");
+                }
+                if (breweryDetails.has("website")) {
+                    website = breweryDetails.getString("website");
+                }
+                if (breweryDetails.has("established")) {
+                    dateOfEstablish = breweryDetails.getString("established");
+                }
 
                 breweries.add(new Brewery(breweryLocation, name, description,
                         website, dateOfEstablish));
             }
-
-
             //create local variables, which read from JSON objects
-             //create Brewery arraylist and return arraylist of breweries
+            //create Brewery arraylist and return arraylist of breweries
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
         }
-
         // Return the list of earthquakes
         return breweries;
     }
