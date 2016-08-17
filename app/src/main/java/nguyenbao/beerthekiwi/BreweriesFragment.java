@@ -79,11 +79,13 @@ public class BreweriesFragment extends Fragment
     @Override
     public Loader<List<Brewery>> onCreateLoader(int id, Bundle args) {
 
+        String locality = getArguments().getString("nguyenbao.beerthekiwi.MESSAGE_KEY");
+
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendQueryParameter(PARAM_KEY, "c1ecd34119b27016f28060879cbc13e0")
                 .appendQueryParameter(PARAM_FORMAT, "json")
-                .appendQueryParameter(PARAM_LOCALITY, "Boulder")
+                .appendQueryParameter(PARAM_LOCALITY, locality)
                 .appendQueryParameter(PARAM_COUNTRY, "US")
                 .build();
 

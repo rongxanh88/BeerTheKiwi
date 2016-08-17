@@ -5,7 +5,7 @@
                 tools:context="nguyenbao.beerthekiwi.SearchFragment">
                 <!--android:background="@drawable/drink_beer"-->
 
-    <MultiAutoCompleteTextView
+    <EditText
         android:id="@+id/locality_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +13,8 @@
         android:layout_gravity="center"
         android:hint="@string/hint_city"
         android:imeOptions="actionSend"
-        android:inputType="text"/>
+        android:inputType="text|textCapWords"
+        android:imeActionLabel="@string/search"/>
         <!--android:textColor="#FFF3E0"-->
         <!--android:textColorHint="#FFF3E0"/>-->
 

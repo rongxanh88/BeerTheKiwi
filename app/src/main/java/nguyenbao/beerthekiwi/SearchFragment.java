@@ -1,6 +1,7 @@
 package nguyenbao.beerthekiwi;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -17,6 +18,7 @@ import android.widget.TextView;
  */
 public class SearchFragment extends Fragment {
 
+    private static final String EXTRA_MESSAGE = "nguyenbao.beerthekiwi.EXTRA_MESSAGE";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -37,6 +39,8 @@ public class SearchFragment extends Fragment {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     //On send, use helper method to send data back to Main Activity
+                    String city = v.getText().toString();
+                    sendIntent(city);
                     handled = true;
                 }
                 return handled;
@@ -47,4 +51,10 @@ public class SearchFragment extends Fragment {
     }
 
     //helper method, sends locality back to Main Activity
+    private void sendIntent(String textEntered){
+        Intent intent = new Intent(getActivity(), BreweryListActivity.class);
+        String message = textEntered;
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
 }
