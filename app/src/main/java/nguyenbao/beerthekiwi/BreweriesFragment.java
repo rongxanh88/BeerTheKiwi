@@ -4,6 +4,7 @@ package nguyenbao.beerthekiwi;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -27,8 +28,11 @@ public class BreweriesFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<List<Brewery>> {
 
     private static final String LOG_TAG = BreweriesFragment.class.getName();
-    private static final String TEST_URL = "http://api.brewerydb.com/v2/locations/?" +
-            "key=c1ecd34119b27016f28060879cbc13e0&format=json&locality=Boulder&countryIsoCode=US";
+    private static final String BASE_URL = "http://api.brewerydb.com/v2/locations/?";
+    private static final String PARAM_KEY = "key";
+    private static final String PARAM_FORMAT = "format";
+    private static final String PARAM_LOCALITY = "locality";
+    private static final String PARAM_COUNTRY = "countryIsoCode";
 
     private ListView mListView;
     private BreweryListAdapter mBreweryArrayAdapter;
@@ -74,7 +78,16 @@ public class BreweriesFragment extends Fragment
 
     @Override
     public Loader<List<Brewery>> onCreateLoader(int id, Bundle args) {
-        return new BreweryLoader(getActivity(), TEST_URL);
+
+        Uri builtUri = Uri.parse(BASE_URL)
+                .buildUpon()
+                .appendQueryParameter(PARAM_KEY, "c1ecd34119b27016f28060879cbc13e0")
+                .appendQueryParameter(PARAM_FORMAT, "json")
+                .appendQueryParameter(PARAM_LOCALITY, "Boulder")
+                .appendQueryParameter(PARAM_COUNTRY, "US")
+                .build();
+
+        return new BreweryLoader(getActivity(), builtUri.toString());
     }
 
     @Override
