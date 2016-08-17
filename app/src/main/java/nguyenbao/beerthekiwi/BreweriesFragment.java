@@ -1,8 +1,14 @@
 package nguyenbao.beerthekiwi;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +17,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BreweriesFragment extends Fragment {
+public class BreweriesFragment extends Fragment
+        implements LoaderManager.LoaderCallbacks<List<Brewery>> {
 
+    private static final String LOG_TAG = BreweriesFragment.class.getName();
+    private static final String TEST_URL = "http://api.brewerydb.com/v2/locations/?" +
+            "key=c1ecd34119b27016f28060879cbc13e0&format=json&locality=Boulder&countryIsoCode=US";
 
     public BreweriesFragment() {
         // Required empty public constructor
@@ -31,27 +42,46 @@ public class BreweriesFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_breweries, container, false);
         setHasOptionsMenu(true);
 
-        //check for network connection and call loader to grab network data to put into arraylist
-        //create ArrayList object of breweries
         final ArrayList<Brewery> breweries = new ArrayList<Brewery>();
-        //test with dummy data
-        breweries.add(new Brewery("Test ArrayList"));
-        breweries.add(new Brewery("Test ArrayList1"));
-        breweries.add(new Brewery("Test ArrayList2"));
-        breweries.add(new Brewery("Test ArrayList3"));
-        breweries.add(new Brewery("Test ArrayList4"));
 
-        //create adapterview for breweries
-        ArrayAdapter<Brewery> itemsAdapter = new ArrayAdapter<Brewery>
-                (getActivity(), android.R.layout.simple_list_item_1, breweries);
+        //initialize the loader if network connection state is good
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            //initializes loader
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(0, null, this);
+        } else {
+            // display error
+            Log.e(LOG_TAG, "No Network Connectivity");
+        }
 
-        //set arraylist into adapterview
-        ListView listView = (ListView)rootview.findViewById(R.id.brewery_list_view);
-
-        //bind adapterview to root view
-        listView.setAdapter(itemsAdapter);
+//        //create adapterview for breweries
+//        ArrayAdapter<Brewery> itemsAdapter = new ArrayAdapter<Brewery>
+//                (getActivity(), android.R.layout.simple_list_item_1, breweries);
+//
+//        //set arraylist into adapterview
+//        ListView listView = (ListView)rootview.findViewById(R.id.brewery_list_view);
+//
+//        //bind adapterview to root view
+//        listView.setAdapter(itemsAdapter);
 
         return rootview;
     }
 
+    @Override
+    public Loader<List<Brewery>> onCreateLoader(int id, Bundle args) {
+        return new BreweryLoader(getActivity(), TEST_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Brewery>> loader, List<Brewery> data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Brewery>> loader) {
+
+    }
 }
