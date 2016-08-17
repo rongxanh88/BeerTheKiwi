@@ -31,7 +31,7 @@ public class BreweriesFragment extends Fragment
             "key=c1ecd34119b27016f28060879cbc13e0&format=json&locality=Boulder&countryIsoCode=US";
 
     private ListView mListView;
-    private ArrayAdapter<Brewery> mBreweryArrayAdapter;
+    private BreweryListAdapter mBreweryArrayAdapter;
 
     public BreweriesFragment() {
         // Required empty public constructor
@@ -61,8 +61,7 @@ public class BreweriesFragment extends Fragment
         }
 
         //create adapterview for breweries
-        mBreweryArrayAdapter = new ArrayAdapter<Brewery>
-                (getActivity(), android.R.layout.simple_list_item_1, breweries);
+        mBreweryArrayAdapter = new BreweryListAdapter(getActivity(), 0, breweries);
 
         //set arraylist into adapterview
         mListView = (ListView)rootview.findViewById(R.id.brewery_list_view);

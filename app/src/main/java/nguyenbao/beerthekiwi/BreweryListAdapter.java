@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +27,18 @@ public class BreweryListAdapter extends ArrayAdapter<Brewery> {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.brewery_list_item, parent, false);
         }
+
+        final Brewery brewery = getItem(position);
+
+        //find and set all views in layout
+        TextView name = (TextView)listItemView.findViewById(R.id.brewery_name);
+        name.setText(brewery.getName());
+
+        TextView address = (TextView)listItemView.findViewById(R.id.brewery_address);
+        address.setText(brewery.getBreweryLocation().getStreetAddress());
+
+//        TextView postalCode = (TextView)listItemView.findViewById(R.id.brewery_postal_code);
+//        postalCode.setText(brewery.getBreweryLocation().getPostalCode());
 
         return listItemView;
     }
