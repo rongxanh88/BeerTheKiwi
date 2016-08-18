@@ -40,9 +40,7 @@ public class FetchBreweryData {
         }
 
         // Extract relevant fields from the JSON response and create a list object
-        ArrayList<Brewery> breweries = extractBreweries(jsonResponse);
-
-        return breweries;
+        return extractBreweries(jsonResponse);
     }
 
     //helper method to parse JSON response
@@ -132,9 +130,10 @@ public class FetchBreweryData {
             //create Brewery arraylist and return arraylist of breweries
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the JSON results", e);
+        }finally {
+            // Return the list of breweries
+            return breweries;
         }
-        // Return the list of earthquakes
-        return breweries;
     }
 
 

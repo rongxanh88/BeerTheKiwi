@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,7 +19,10 @@ import android.widget.TextView;
  */
 public class SearchFragment extends Fragment {
 
-    private static final String EXTRA_MESSAGE = "nguyenbao.beerthekiwi.EXTRA_MESSAGE";
+    private static final String EXTRA_CITY = "nguyenbao.beerthekiwi.EXTRA_CITY";
+    private static final String EXTRA_POSTAL = "nguyenbao.beerthekiwi.EXTRA_POSTAL";
+    private static final String EXTRA_REGION = "nguyenbao.beerthekiwi.EXTRA_REGION";
+    private static final String EXTRA_COUNTRY = "nguyenbao.beerthekiwi.EXTRA_COUNTRY";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -32,18 +36,22 @@ public class SearchFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_search, container, false);
         setHasOptionsMenu(true);
 
-        EditText citySearch = (EditText)rootview.findViewById(R.id.locality_text_view);
-        citySearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    //On send, use helper method to send data back to Main Activity
-                    String city = v.getText().toString();
-                    sendIntent(city);
-                    handled = true;
-                }
-                return handled;
+        final EditText citySearch = (EditText)rootview.findViewById(R.id.locality_edit_view);
+        final EditText postalSearch = (EditText)rootview.findViewById(R.id.postalCode_edit_view);
+        final EditText regionSearch = (EditText)rootview.findViewById(R.id.region_edit_view);
+        final EditText countrySearch = (EditText)rootview.findViewById(R.id.country_edit_view);
+
+        countrySearch.setText(R.string.default_country);
+
+        final Button button = (Button)rootview.findViewById(R.id.brewery_search);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String city = citySearch.getText().toString();
+                String postalCode = postalSearch.getText().toString();
+                String region = regionSearch.getText().toString();
+                String country = countrySearch.getText().toString(); //default is United States
+
+                sendIntent(city, postalCode, region, country);
             }
         });
 
@@ -51,10 +59,13 @@ public class SearchFragment extends Fragment {
     }
 
     //helper method, sends locality back to Main Activity
-    private void sendIntent(String textEntered){
+    private void sendIntent(String cityEntered, String postalCodeEntered, String regionEntered,
+                            String countryEntered){
         Intent intent = new Intent(getActivity(), BreweryListActivity.class);
-        String message = textEntered;
-        intent.putExtra(EXTRA_MESSAGE, message);
+        intent.putExtra(EXTRA_CITY, cityEntered);
+        intent.putExtra(EXTRA_POSTAL, postalCodeEntered);
+        intent.putExtra(EXTRA_REGION, regionEntered);
+        intent.putExtra(EXTRA_COUNTRY, countryEntered);
         startActivity(intent);
     }
 }

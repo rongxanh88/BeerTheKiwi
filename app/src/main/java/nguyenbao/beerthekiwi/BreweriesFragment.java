@@ -2,6 +2,7 @@ package nguyenbao.beerthekiwi;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,8 @@ public class BreweriesFragment extends Fragment
     private static final String PARAM_KEY = "key";
     private static final String PARAM_FORMAT = "format";
     private static final String PARAM_LOCALITY = "locality";
+    private static final String PARAM_POSTAL = "postalCode";
+    private static final String PARAM_REGION = "region";
     private static final String PARAM_COUNTRY = "countryIsoCode";
 
     private ListView mListView;
@@ -49,7 +53,7 @@ public class BreweriesFragment extends Fragment
         View rootview = inflater.inflate(R.layout.fragment_breweries, container, false);
         setHasOptionsMenu(true);
 
-        final ArrayList<Brewery> breweries = new ArrayList<Brewery>();
+        final ArrayList<Brewery> breweries = new ArrayList<>();
 
         //initialize the loader if network connection state is good
         ConnectivityManager connMgr = (ConnectivityManager)
@@ -79,15 +83,33 @@ public class BreweriesFragment extends Fragment
     @Override
     public Loader<List<Brewery>> onCreateLoader(int id, Bundle args) {
 
-        String locality = getArguments().getString("nguyenbao.beerthekiwi.MESSAGE_KEY");
+        String city = getArguments().getString("nguyenbao.beerthekiwi.CITY_KEY");
+        String postalCode = getArguments().getString("nguyenbao.beerthekiwi.POSTAL_KEY");
+        String region = getArguments().getString("nguyenbao.beerthekiwi.REGION_KEY");
+        String country = getArguments().getString("nguyenbao.beerthekiwi.COUNTRY_KEY");
 
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendQueryParameter(PARAM_KEY, "c1ecd34119b27016f28060879cbc13e0")
                 .appendQueryParameter(PARAM_FORMAT, "json")
-                .appendQueryParameter(PARAM_LOCALITY, locality)
                 .appendQueryParameter(PARAM_COUNTRY, "US")
                 .build();
+
+        if(city.length() != 0){
+            builtUri = builtUri.buildUpon()
+                    .appendQueryParameter(PARAM_LOCALITY, city)
+                    .build();
+        }
+        if(postalCode.length() != 0){
+            builtUri = builtUri.buildUpon()
+                    .appendQueryParameter(PARAM_POSTAL, postalCode)
+                    .build();
+        }
+        if(region.length() != 0){
+            builtUri = builtUri.buildUpon()
+                    .appendQueryParameter(PARAM_REGION, region)
+                    .build();
+        }
 
         return new BreweryLoader(getActivity(), builtUri.toString());
     }
@@ -95,11 +117,27 @@ public class BreweriesFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<List<Brewery>> loader, List<Brewery> data) {
         mBreweryArrayAdapter.clear();
-        mBreweryArrayAdapter.addAll(data);
+
+        if(data.size() == 0) {
+            returnToSearch();
+        }
+        else if(data.size() == 50){
+            mBreweryArrayAdapter.addAll(data);
+            Toast.makeText(getActivity(), "Max results reached: 50", Toast.LENGTH_LONG).show();
+        }else{
+            mBreweryArrayAdapter.addAll(data);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<List<Brewery>> loader) {
         mBreweryArrayAdapter.clear();
+    }
+
+    private void returnToSearch(){
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+
+        Toast.makeText(getActivity(), "No Search Results", Toast.LENGTH_LONG).show();
     }
 }

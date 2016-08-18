@@ -3,19 +3,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="nguyenbao.beerthekiwi.SearchFragment">
-                <!--android:background="@drawable/drink_beer"-->
+    <!--android:background="@drawable/drink_beer"-->
 
     <EditText
-        android:id="@+id/locality_text_view"
+        android:id="@+id/locality_edit_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:hint="@string/hint_city"
-        android:imeOptions="actionSend"
+        android:imeOptions="actionDone"
+        android:inputType="text|textCapWords"/>
+    <!--android:textColor="#FFF3E0"-->
+    <!--android:textColorHint="#FFF3E0"/>-->
+
+    <EditText
+        android:id="@+id/postalCode_edit_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locality_edit_view"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/hint_postal_code"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/region_edit_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/postalCode_edit_view"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/hint_region"
+        android:imeOptions="actionDone"
         android:inputType="text|textCapWords"
-        android:imeActionLabel="@string/search"/>
-        <!--android:textColor="#FFF3E0"-->
-        <!--android:textColorHint="#FFF3E0"/>-->
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/country_edit_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/region_edit_view"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/hint_country"
+        android:imeOptions="actionDone"
+        android:inputType="text|textCapWords"/>
+
+    <Button
+        android:id="@+id/brewery_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/country_edit_view"
+        android:layout_centerHorizontal="true"
+        android:text="@string/search"/>
 
 </RelativeLayout>
