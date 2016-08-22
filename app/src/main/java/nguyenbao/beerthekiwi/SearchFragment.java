@@ -42,7 +42,14 @@ public class SearchFragment extends Fragment {
 
         final EditText citySearch = (EditText)rootview.findViewById(R.id.locality_edit_view);
         final EditText postalSearch = (EditText)rootview.findViewById(R.id.postalCode_edit_view);
-        final EditText regionSearch = (EditText)rootview.findViewById(R.id.region_edit_view);
+
+        final AutoCompleteTextView regionSearch = (AutoCompleteTextView) rootview.findViewById(R.id.region_edit_view);
+        String[] regionAutoComplete = retrieveListOfRegions();
+        ArrayAdapter<String> regionAdapter =
+                new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
+                        regionAutoComplete);
+        regionSearch.setAdapter(regionAdapter);
+
         final AutoCompleteTextView countrySearch = (AutoCompleteTextView)
                 rootview.findViewById(R.id.country_edit_view);
 
@@ -93,4 +100,9 @@ public class SearchFragment extends Fragment {
 //
 //        return countryNameOnly;
 //    }
+
+    private String[] retrieveListOfRegions (){
+        String[] regions = getResources().getStringArray(R.array.us_states);
+        return regions;
+    }
 }
