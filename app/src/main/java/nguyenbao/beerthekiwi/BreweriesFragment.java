@@ -42,11 +42,11 @@ public class BreweriesFragment extends Fragment
     private ListView mListView;
     private BreweryListAdapter mBreweryArrayAdapter;
 
-    OnSelectedBreweryListener mCallback;
-
-    public interface OnSelectedBreweryListener {
-        void onBrewerySelected(Brewery selectedBrewery);
-    }
+//    OnSelectedBreweryListener mCallback;
+//
+//    public interface OnSelectedBreweryListener {
+//        void onBrewerySelected(Brewery selectedBrewery);
+//    }
 
     public BreweriesFragment() {
         // Required empty public constructor
@@ -90,9 +90,9 @@ public class BreweriesFragment extends Fragment
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(getContext(), "Clicked on item" + position, Toast.LENGTH_SHORT).show();
 
-                Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
-
-                mCallback.onBrewerySelected(selectedBrewery);
+//                Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
+//
+//                mCallback.onBrewerySelected(selectedBrewery);
             }
         });
 
@@ -160,17 +160,17 @@ public class BreweriesFragment extends Fragment
         Toast.makeText(getActivity(), "No Search Results", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnSelectedBreweryListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnSelectedBreweryListener");
-        }
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//
+//        // This makes sure that the container activity has implemented
+//        // the callback interface. If not, it throws an exception
+//        try {
+//            mCallback = (OnSelectedBreweryListener) context;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(context.toString()
+//                    + " must implement OnSelectedBreweryListener");
+//        }
+//    }
 }
