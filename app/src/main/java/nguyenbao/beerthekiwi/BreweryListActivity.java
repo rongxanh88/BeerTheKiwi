@@ -5,10 +5,10 @@ import android.os.Bundle;
 
 public class BreweryListActivity extends AppCompatActivity {
 
-    private static final String CITY_KEY = "nguyenbao.beerthekiwi.CITY_KEY";
-    private static final String POSTAL_KEY = "nguyenbao.beerthekiwi.POSTAL_KEY";
-    private static final String REGION_KEY = "nguyenbao.beerthekiwi.REGION_KEY";
-    private static final String COUNTRY_KEY = "nguyenbao.beerthekiwi.COUNTRY_KEY";
+    public static final String CITY_KEY = "nguyenbao.beerthekiwi.CITY_KEY";
+    public static final String POSTAL_KEY = "nguyenbao.beerthekiwi.POSTAL_KEY";
+    public static final String REGION_KEY = "nguyenbao.beerthekiwi.REGION_KEY";
+    public static final String COUNTRY_KEY = "nguyenbao.beerthekiwi.COUNTRY_KEY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +17,10 @@ public class BreweryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //retrieve extras from intent
-        String city = getIntent().getStringExtra("nguyenbao.beerthekiwi.EXTRA_CITY");
-        String postalCode = getIntent().getStringExtra("nguyenbao.beerthekiwi.EXTRA_POSTAL");
-        String region = getIntent().getStringExtra("nguyenbao.beerthekiwi.EXTRA_REGION");
-        String country = getIntent().getStringExtra("nguyenbao.beerthekiwi.EXTRA_COUNTRY");
+        String city = getIntent().getStringExtra(SearchFragment.EXTRA_CITY);
+        String postalCode = getIntent().getStringExtra(SearchFragment.EXTRA_POSTAL);
+        String region = getIntent().getStringExtra(SearchFragment.EXTRA_REGION);
+        String country = getIntent().getStringExtra(SearchFragment.EXTRA_COUNTRY);
 
         //launch a fragment that displays listview of all breweries found in search result
         if (savedInstanceState == null) {

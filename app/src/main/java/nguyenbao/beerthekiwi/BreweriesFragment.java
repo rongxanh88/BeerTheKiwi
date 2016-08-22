@@ -19,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class BreweriesFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<List<Brewery>> {
 
     private static final String LOG_TAG = BreweriesFragment.class.getName();
+
     //For use with Uri Builder
     private static final String BASE_URL = "http://api.brewerydb.com/v2/locations/?";
     private static final String PARAM_KEY = "key";
@@ -39,14 +42,11 @@ public class BreweriesFragment extends Fragment
     private static final String PARAM_REGION = "region";
     private static final String PARAM_COUNTRY = "countryIsoCode";
 
+    //GSON OBJECT STRING
+    public static final String GSON_BREWERY = "nguyenbao.beerthekiwi.GSON_BREWERY";
+
     private ListView mListView;
     private BreweryListAdapter mBreweryArrayAdapter;
-
-//    OnSelectedBreweryListener mCallback;
-//
-//    public interface OnSelectedBreweryListener {
-//        void onBrewerySelected(Brewery selectedBrewery);
-//    }
 
     public BreweriesFragment() {
         // Required empty public constructor
@@ -90,9 +90,11 @@ public class BreweriesFragment extends Fragment
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(getContext(), "Clicked on item" + position, Toast.LENGTH_SHORT).show();
 
-//                Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
-//
-//                mCallback.onBrewerySelected(selectedBrewery);
+                Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
+
+                Intent intent = new Intent(getContext(), BreweryDetailActivity.class);
+                intent.putExtra(GSON_BREWERY, new Gson().toJson(selectedBrewery));
+                startActivity(intent);
             }
         });
 
@@ -102,10 +104,10 @@ public class BreweriesFragment extends Fragment
     @Override
     public Loader<List<Brewery>> onCreateLoader(int id, Bundle args) {
 
-        String city = getArguments().getString("nguyenbao.beerthekiwi.CITY_KEY");
-        String postalCode = getArguments().getString("nguyenbao.beerthekiwi.POSTAL_KEY");
-        String region = getArguments().getString("nguyenbao.beerthekiwi.REGION_KEY");
-        //String country = getArguments().getString("nguyenbao.beerthekiwi.COUNTRY_KEY");
+        String city = getArguments().getString(BreweryListActivity.CITY_KEY);
+        String postalCode = getArguments().getString(BreweryListActivity.POSTAL_KEY);
+        String region = getArguments().getString(BreweryListActivity.REGION_KEY);
+//        String country = getArguments().getString(BreweryListActivity.COUNTRY_KEY);
 
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -159,18 +161,4 @@ public class BreweriesFragment extends Fragment
 
         Toast.makeText(getActivity(), "No Search Results", Toast.LENGTH_LONG).show();
     }
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//
-//        // This makes sure that the container activity has implemented
-//        // the callback interface. If not, it throws an exception
-//        try {
-//            mCallback = (OnSelectedBreweryListener) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString()
-//                    + " must implement OnSelectedBreweryListener");
-//        }
-//    }
 }

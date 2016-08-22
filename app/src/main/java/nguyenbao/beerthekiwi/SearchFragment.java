@@ -23,10 +23,10 @@ import java.util.ArrayList;
  */
 public class SearchFragment extends Fragment {
 
-    private static final String EXTRA_CITY = "nguyenbao.beerthekiwi.EXTRA_CITY";
-    private static final String EXTRA_POSTAL = "nguyenbao.beerthekiwi.EXTRA_POSTAL";
-    private static final String EXTRA_REGION = "nguyenbao.beerthekiwi.EXTRA_REGION";
-    private static final String EXTRA_COUNTRY = "nguyenbao.beerthekiwi.EXTRA_COUNTRY";
+    public static final String EXTRA_CITY = "nguyenbao.beerthekiwi.EXTRA_CITY";
+    public static final String EXTRA_POSTAL = "nguyenbao.beerthekiwi.EXTRA_POSTAL";
+    public static final String EXTRA_REGION = "nguyenbao.beerthekiwi.EXTRA_REGION";
+    public static final String EXTRA_COUNTRY = "nguyenbao.beerthekiwi.EXTRA_COUNTRY";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -70,7 +70,7 @@ public class SearchFragment extends Fragment {
         return rootview;
     }
 
-    //helper method, sends locality back to Main Activity
+    //helper method, sends locality back to Brewery List Activity
     private void sendIntent(String cityEntered, String postalCodeEntered, String regionEntered,
                             String countryEntered){
         Intent intent = new Intent(getActivity(), BreweryListActivity.class);
