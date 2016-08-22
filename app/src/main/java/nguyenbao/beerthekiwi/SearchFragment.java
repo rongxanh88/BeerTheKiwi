@@ -15,7 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 
 /**
@@ -52,15 +55,14 @@ public class SearchFragment extends Fragment {
 
         final AutoCompleteTextView countrySearch = (AutoCompleteTextView)
                 rootview.findViewById(R.id.country_edit_view);
+        ArrayList<String> countryAutoComplete = retrieveListOfCountries();
 
-//        ArrayList<String> countryAutoComplete = retrieveListOfCountries();
-//
-//        ArrayAdapter<String> adapter =
-//                new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
-//                        countryAutoComplete);
-//        countrySearch.setAdapter(adapter);
+        ArrayAdapter<String> countryAdapter =
+                new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,
+                        countryAutoComplete);
+        countrySearch.setAdapter(countryAdapter);
 
-        countrySearch.setText(R.string.default_country);
+//        countrySearch.setText(R.string.default_country);
 
         final Button button = (Button)rootview.findViewById(R.id.brewery_search);
         button.setOnClickListener(new View.OnClickListener() {
@@ -88,18 +90,35 @@ public class SearchFragment extends Fragment {
         startActivity(intent);
     }
 
-//    //helper method, sends back string array of countries for autocomplete
-//    private ArrayList<String> retrieveListOfCountries (){
-//        String[] countriesFullData = getResources().getStringArray(R.array.country_data);
-//        ArrayList<String> countryNameOnly = new ArrayList<>();
-//
-//        for(int i = 0; i < countriesFullData.length; i++){
-//            String name = countriesFullData[i].substring(0,index);
-//            countryNameOnly.add(name);
-//        }
-//
-//        return countryNameOnly;
-//    }
+    //helper method, sends back string array of countries for autocomplete
+    private ArrayList<String> retrieveListOfCountries (){
+        String[] countriesFullData = getResources().getStringArray(R.array.country_data);
+        ArrayList<String> countryNameList = new ArrayList<>();
+
+        for(int i = 0; i < countriesFullData.length; i++){
+            Scanner stringScanner = new Scanner(countriesFullData[i]);
+            String countryName = "";
+            for(int j = 0; j < 10; j++){
+                countryName = countryName + stringScanner.next() + " ";
+                if(stringScanner.hasNextInt()){
+                    break;
+                }
+                if(stringScanner.hasNext(Pattern.compile(".-..."))){
+                    break;
+                }
+                if(stringScanner.hasNext(Pattern.compile(".-...."))){
+                    break;
+                }
+                if(stringScanner.hasNext(Pattern.compile("..-...."))){
+                    break;
+                }
+            }
+            countryName = countryName.trim();
+            countryNameList.add(countryName);
+        }
+
+        return countryNameList;
+    }
 
     private String[] retrieveListOfRegions (){
         String[] regions = getResources().getStringArray(R.array.us_states);
