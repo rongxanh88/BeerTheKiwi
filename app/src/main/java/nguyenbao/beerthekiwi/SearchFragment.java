@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -39,7 +43,15 @@ public class SearchFragment extends Fragment {
         final EditText citySearch = (EditText)rootview.findViewById(R.id.locality_edit_view);
         final EditText postalSearch = (EditText)rootview.findViewById(R.id.postalCode_edit_view);
         final EditText regionSearch = (EditText)rootview.findViewById(R.id.region_edit_view);
-        final EditText countrySearch = (EditText)rootview.findViewById(R.id.country_edit_view);
+        final AutoCompleteTextView countrySearch = (AutoCompleteTextView)
+                rootview.findViewById(R.id.country_edit_view);
+
+//        ArrayList<String> countryAutoComplete = retrieveListOfCountries();
+//
+//        ArrayAdapter<String> adapter =
+//                new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,
+//                        countryAutoComplete);
+//        countrySearch.setAdapter(adapter);
 
         countrySearch.setText(R.string.default_country);
 
@@ -68,4 +80,17 @@ public class SearchFragment extends Fragment {
         intent.putExtra(EXTRA_COUNTRY, countryEntered);
         startActivity(intent);
     }
+
+//    //helper method, sends back string array of countries for autocomplete
+//    private ArrayList<String> retrieveListOfCountries (){
+//        String[] countriesFullData = getResources().getStringArray(R.array.country_data);
+//        ArrayList<String> countryNameOnly = new ArrayList<>();
+//
+//        for(int i = 0; i < countriesFullData.length; i++){
+//            String name = countriesFullData[i].substring(0,index);
+//            countryNameOnly.add(name);
+//        }
+//
+//        return countryNameOnly;
+//    }
 }

@@ -13,6 +13,7 @@
         android:layout_weight="2"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:textColor="@color/colorPrimaryText"
         tools:text="Avery Brewing CO"/>
 
     <TextView
@@ -22,6 +23,7 @@
         android:layout_weight="2"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:textColor="@color/colorSecondaryText"
         tools:text="123 Fake St"/>
 
     <!--<TextView-->

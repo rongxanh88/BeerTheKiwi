@@ -3,6 +3,8 @@
           android:id="@+id/brewery_list_view"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
+          android:divider="@color/colorDivider"
+          android:dividerHeight="2dp"
           tools:context="nguyenbao.beerthekiwi.BreweriesFragment">
 
 </ListView>

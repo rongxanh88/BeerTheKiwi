@@ -30,6 +30,7 @@ public class BreweriesFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<List<Brewery>> {
 
     private static final String LOG_TAG = BreweriesFragment.class.getName();
+    //For use with Uri Builder
     private static final String BASE_URL = "http://api.brewerydb.com/v2/locations/?";
     private static final String PARAM_KEY = "key";
     private static final String PARAM_FORMAT = "format";
@@ -40,6 +41,12 @@ public class BreweriesFragment extends Fragment
 
     private ListView mListView;
     private BreweryListAdapter mBreweryArrayAdapter;
+
+    OnSelectedBreweryListener mCallback;
+
+    public interface OnSelectedBreweryListener {
+        void onBrewerySelected(Brewery selectedBrewery);
+    }
 
     public BreweriesFragment() {
         // Required empty public constructor
@@ -77,6 +84,18 @@ public class BreweriesFragment extends Fragment
         //bind adapterview to root view
         mListView.setAdapter(mBreweryArrayAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Toast.makeText(getContext(), "Clicked on item" + position, Toast.LENGTH_SHORT).show();
+
+                Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
+
+                mCallback.onBrewerySelected(selectedBrewery);
+            }
+        });
+
         return rootview;
     }
 
@@ -86,7 +105,7 @@ public class BreweriesFragment extends Fragment
         String city = getArguments().getString("nguyenbao.beerthekiwi.CITY_KEY");
         String postalCode = getArguments().getString("nguyenbao.beerthekiwi.POSTAL_KEY");
         String region = getArguments().getString("nguyenbao.beerthekiwi.REGION_KEY");
-        String country = getArguments().getString("nguyenbao.beerthekiwi.COUNTRY_KEY");
+        //String country = getArguments().getString("nguyenbao.beerthekiwi.COUNTRY_KEY");
 
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
@@ -139,5 +158,19 @@ public class BreweriesFragment extends Fragment
         startActivity(intent);
 
         Toast.makeText(getActivity(), "No Search Results", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnSelectedBreweryListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnSelectedBreweryListener");
+        }
     }
 }

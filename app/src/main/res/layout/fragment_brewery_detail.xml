@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="nguyenbao.beerthekiwi.BreweryDetailFragment">
+
+    <TextView
+        android:id="@+id/brewery_name_detail_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Test"/>
+
+    <TextView
+        android:id="@+id/brewery_description_detail_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Test"/>
+
+    <TextView
+        android:id="@+id/brewery_website_detail_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Test"/>
+
+    <TextView
+        android:id="@+id/brewery_date_of_establishment_detail_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Test"/>
+
+</LinearLayout>

@@ -7,19 +7,20 @@
 
     <EditText
         android:id="@+id/locality_edit_view"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:hint="@string/hint_city"
         android:imeOptions="actionDone"
-        android:inputType="text|textCapWords"/>
+        android:inputType="text|textCapWords"
+        android:textAlignment="center"/>
     <!--android:textColor="#FFF3E0"-->
     <!--android:textColorHint="#FFF3E0"/>-->
 
     <EditText
         android:id="@+id/postalCode_edit_view"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/locality_edit_view"
         android:layout_centerHorizontal="true"
@@ -30,7 +31,7 @@
 
     <EditText
         android:id="@+id/region_edit_view"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/postalCode_edit_view"
         android:layout_centerHorizontal="true"
@@ -39,15 +40,17 @@
         android:inputType="text|textCapWords"
         android:textAlignment="center"/>
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/country_edit_view"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/region_edit_view"
         android:layout_centerHorizontal="true"
+        android:dropDownWidth="120dp"
         android:hint="@string/hint_country"
         android:imeOptions="actionDone"
-        android:inputType="text|textCapWords"/>
+        android:inputType="text|textCapWords"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/brewery_search"
