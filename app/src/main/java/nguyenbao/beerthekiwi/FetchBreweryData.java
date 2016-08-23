@@ -1,5 +1,6 @@
 package nguyenbao.beerthekiwi;
 
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,6 +18,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
+import nguyenbao.beerthekiwi.BreweryObjects.BreweryImageURL;
 import nguyenbao.beerthekiwi.BreweryObjects.BreweryLocation;
 
 /**
@@ -106,12 +108,16 @@ public class FetchBreweryData {
                         longitude, latitude);
 
                 //initialize data to empty strings
+                String id = "";
                 String name = "";
                 String description = "";
                 String website = "";
                 String dateOfEstablish = "";
 
                 //grab brewery data
+                if (brewery.has("id")){
+                    id = brewery.getString("id");
+                }
                 JSONObject breweryDetails = brewery.getJSONObject("brewery");
                 if (breweryDetails.has("name")) {
                     name = breweryDetails.getString("name");
@@ -126,7 +132,21 @@ public class FetchBreweryData {
                     dateOfEstablish = breweryDetails.getString("established");
                 }
 
-                breweries.add(new Brewery(breweryLocation, name, description,
+                BreweryImageURL imageUrls = new BreweryImageURL();
+
+                //getBreweryImageUrls
+                if (breweryDetails.has("images")) {
+                    JSONObject images = breweryDetails.getJSONObject("images");
+
+                    String iconUrl = images.getString("icon");
+                    imageUrls.setIconUrl(iconUrl);
+                    String mediumUrl = images.getString("medium");
+                    imageUrls.setMediumUrl(mediumUrl);
+                    String largeUrl = images.getString("large");
+                    imageUrls.setLargeUrl(largeUrl);
+                }
+
+                breweries.add(new Brewery(breweryLocation, imageUrls, id, name, description,
                         website, dateOfEstablish));
             }
             //create local variables, which read from JSON objects
@@ -138,7 +158,6 @@ public class FetchBreweryData {
             return breweries;
         }
     }
-
 
     //JSON data is read and then put into the arrayList
 

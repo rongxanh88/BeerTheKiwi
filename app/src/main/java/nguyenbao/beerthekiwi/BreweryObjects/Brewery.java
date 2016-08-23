@@ -9,6 +9,7 @@ public class Brewery {
 
     private BreweryLocation mBreweryLocation;
     private BreweryImageURL mImages;
+    private String mID;
     private String mName;
     private String mDescription;
     private String mWebsite;
@@ -18,10 +19,11 @@ public class Brewery {
         //empty constructor
     }
 
-    public Brewery(BreweryLocation breweryLocation, BreweryImageURL images, String name, String description,
+    public Brewery(BreweryLocation breweryLocation, BreweryImageURL imageURL,String id, String name, String description,
                    String website, String dateOfEstablishment){
         mBreweryLocation = breweryLocation;
-        mImages = images;
+        mImages = imageURL;
+        mID = id;
         mName = name;
         mDescription = description;
         mWebsite = website;
@@ -35,6 +37,14 @@ public class Brewery {
 
     public BreweryImageURL getImages() {
         return mImages;
+    }
+
+    public void setImages(BreweryImageURL images) {
+        mImages = images;
+    }
+
+    public String getID() {
+        return mID;
     }
 
     public String getName() {

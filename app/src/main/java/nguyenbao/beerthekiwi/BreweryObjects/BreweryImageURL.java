@@ -30,4 +30,16 @@ public class BreweryImageURL {
     public String getLargeUrl() {
         return mLargeUrl;
     }
+
+    public void setIconUrl(String iconUrl) {
+        mIconUrl = iconUrl;
+    }
+
+    public void setMediumUrl(String mediumUrl) {
+        mMediumUrl = mediumUrl;
+    }
+
+    public void setLargeUrl(String largeUrl) {
+        mLargeUrl = largeUrl;
+    }
 }
