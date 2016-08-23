@@ -1,13 +1,14 @@
-package nguyenbao.beerthekiwi;
+package nguyenbao.beerthekiwi.BreweryObjects;
 
 /**
  * Created by Bao Nguyen on 8/17/2016.
  */
 public class Brewery {
 
-    //global variables to store states of a brewery
+    //class variables to store states of a brewery
 
     private BreweryLocation mBreweryLocation;
+    private BreweryImageURL mImages;
     private String mName;
     private String mDescription;
     private String mWebsite;
@@ -17,9 +18,10 @@ public class Brewery {
         //empty constructor
     }
 
-    public Brewery(BreweryLocation breweryLocation, String name, String description,
+    public Brewery(BreweryLocation breweryLocation, BreweryImageURL images, String name, String description,
                    String website, String dateOfEstablishment){
         mBreweryLocation = breweryLocation;
+        mImages = images;
         mName = name;
         mDescription = description;
         mWebsite = website;
@@ -29,6 +31,10 @@ public class Brewery {
     //get methods for Brewery states
     public BreweryLocation getBreweryLocation() {
         return mBreweryLocation;
+    }
+
+    public BreweryImageURL getImages() {
+        return mImages;
     }
 
     public String getName() {

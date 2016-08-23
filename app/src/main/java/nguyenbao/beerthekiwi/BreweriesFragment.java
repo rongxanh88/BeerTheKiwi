@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +22,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
 
 
 /**
@@ -139,14 +140,17 @@ public class BreweriesFragment extends Fragment
     public void onLoadFinished(Loader<List<Brewery>> loader, List<Brewery> data) {
         mBreweryArrayAdapter.clear();
 
+        if(data.size() > 0){
+            mBreweryArrayAdapter.addAll(data);
+        }
         if(data.size() == 0) {
             returnToSearch();
         }
-        else if(data.size() == 50){
+        if(data.size() == 50){
             mBreweryArrayAdapter.addAll(data);
             Toast.makeText(getActivity(), "Max results reached: 50", Toast.LENGTH_LONG).show();
         }else{
-            mBreweryArrayAdapter.addAll(data);
+            //no other considerations
         }
     }
 

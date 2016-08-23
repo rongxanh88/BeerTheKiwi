@@ -1,4 +1,4 @@
-package nguyenbao.beerthekiwi;
+package nguyenbao.beerthekiwi.BreweryObjects;
 
 /**
  * Created by Bao Nguyen on 8/17/2016.

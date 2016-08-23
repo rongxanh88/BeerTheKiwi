@@ -6,6 +6,8 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
+
 /**
  * Created by Bao Nguyen on 8/17/2016.
  */

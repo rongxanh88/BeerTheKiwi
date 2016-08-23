@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
+
 public class BreweryDetailFragment extends Fragment {
 
 

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
+
 /**
  * Created by Bao Nguyen on 8/17/2016.
  */

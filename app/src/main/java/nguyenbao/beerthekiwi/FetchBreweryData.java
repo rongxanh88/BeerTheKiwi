@@ -16,6 +16,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
+import nguyenbao.beerthekiwi.BreweryObjects.BreweryLocation;
+
 /**
  * Created by Bao Nguyen on 8/17/2016.
  */
