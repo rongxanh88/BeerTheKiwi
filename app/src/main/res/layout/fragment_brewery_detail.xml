@@ -1,32 +1,57 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-              android:orientation="vertical"
-             tools:context="nguyenbao.beerthekiwi.BreweryDetailFragment">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    tools:context="nguyenbao.beerthekiwi.BreweryDetailFragment">
 
-    <TextView
-        android:id="@+id/brewery_name_detail_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Test"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/brewery_description_detail_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Test"/>
+        <ImageView
+            android:id="@+id/brewery_detail_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher"/>
 
-    <TextView
-        android:id="@+id/brewery_website_detail_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Test"/>
+        <TextView
+            android:id="@+id/brewery_name_detail_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="Name"/>
 
-    <TextView
-        android:id="@+id/brewery_date_of_establishment_detail_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Test"/>
+        <TextView
+            android:id="@+id/brewery_description_detail_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="Description"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/brewery_website_detail_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:textColor="#2196F3"
+            tools:text="Website"/>
+
+        <TextView
+            android:id="@+id/brewery_date_of_establishment_detail_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            tools:text="Date of establishment"/>
+
+    </LinearLayout>
+</ScrollView>
