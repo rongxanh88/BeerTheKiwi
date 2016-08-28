@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BeerTheKiwi</string>
+    <string name="app_name">Brewery Search</string>
 
     <string name="hint_city">City</string>
     <string name="hint_postal_code">Postal Code</string>

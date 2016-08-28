@@ -1,12 +1,20 @@
 package nguyenbao.beerthekiwi;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
@@ -15,6 +23,8 @@ import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
  * Created by Bao Nguyen on 8/17/2016.
  */
 public class BreweryListAdapter extends ArrayAdapter<Brewery> {
+
+    private static final String LOG_TAG = BreweryListAdapter.class.getName();
 
     public BreweryListAdapter(Context context, int resource, List<Brewery> breweries) {
         super(context, resource, breweries);
@@ -32,16 +42,44 @@ public class BreweryListAdapter extends ArrayAdapter<Brewery> {
 
         final Brewery brewery = getItem(position);
 
+        String iconUrl = brewery.getImages().getIconUrl();
+        if (iconUrl != null) {
+            //find image view and set icon
+            new DownloadImageTask((ImageView) listItemView.findViewById(R.id.list_item_icon))
+                    .execute(iconUrl);
+        }else{
+            ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
+            iconView.setImageResource(R.mipmap.ic_launcher);//placeholder
+        }
+
         //find and set all views in layout
         TextView name = (TextView)listItemView.findViewById(R.id.brewery_name);
         name.setText(brewery.getName());
 
-        TextView address = (TextView)listItemView.findViewById(R.id.brewery_address);
-        address.setText(brewery.getBreweryLocation().getStreetAddress());
-
-//        TextView postalCode = (TextView)listItemView.findViewById(R.id.brewery_postal_code);
-//        postalCode.setText(brewery.getBreweryLocation().getPostalCode());
-
         return listItemView;
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Could not open stream to get image file.", e);
+            }
+            return mIcon;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }

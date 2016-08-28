@@ -3,36 +3,30 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingTop="4sp"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              android:paddingBottom="4sp"
+              android:paddingTop="4sp">
+
+    <ImageView
+        android:id="@+id/list_item_icon"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="8sp"
+        android:layout_marginRight="8sp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/brewery_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_height="60dp"
+        android:layout_weight="3"
+        android:gravity="center"
         android:textAlignment="center"
-        android:textSize="16sp"
         android:textColor="@color/colorPrimaryText"
+        android:textSize="20sp"
         tools:text="Avery Brewing CO"/>
-
-    <TextView
-        android:id="@+id/brewery_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:textColor="@color/colorSecondaryText"
-        tools:text="123 Fake St"/>
-
-    <!--<TextView-->
-        <!--android:id="@+id/brewery_postal_code"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="1"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textSize="16sp"-->
-        <!--tools:text="2011"/>-->
 
 </LinearLayout>
