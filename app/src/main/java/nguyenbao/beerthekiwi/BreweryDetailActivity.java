@@ -18,7 +18,6 @@ public class BreweryDetailActivity extends AppCompatActivity{
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_fragment_container, fragment)
-                    .addToBackStack(null)
                     .commit();
         }
     }

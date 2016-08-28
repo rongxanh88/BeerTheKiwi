@@ -42,7 +42,7 @@ public class BreweryListAdapter extends ArrayAdapter<Brewery> {
 
         final Brewery brewery = getItem(position);
 
-        String iconUrl = brewery.getImages().getIconUrl();
+        String iconUrl = brewery.getImages().getLargeUrl();
         if (iconUrl != null) {
             //find image view and set icon
             new DownloadImageTask((ImageView) listItemView.findViewById(R.id.list_item_icon))
