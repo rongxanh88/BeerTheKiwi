@@ -62,7 +62,7 @@ public class SearchFragment extends Fragment {
                         countryAutoComplete);
         countrySearch.setAdapter(countryAdapter);
 
-//        countrySearch.setText(R.string.default_country);
+        countrySearch.setText(R.string.default_country);
 
         final Button button = (Button)rootview.findViewById(R.id.brewery_search);
         button.setOnClickListener(new View.OnClickListener() {

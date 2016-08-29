@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
 
@@ -89,8 +90,6 @@ public class BreweriesFragment extends Fragment
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(getContext(), "Clicked on item" + position, Toast.LENGTH_SHORT).show();
-
                 Brewery selectedBrewery = (Brewery)mListView.getItemAtPosition(position);
 
                 Intent intent = new Intent(getContext(), BreweryDetailActivity.class);
@@ -108,13 +107,14 @@ public class BreweriesFragment extends Fragment
         String city = getArguments().getString(BreweryListActivity.CITY_KEY);
         String postalCode = getArguments().getString(BreweryListActivity.POSTAL_KEY);
         String region = getArguments().getString(BreweryListActivity.REGION_KEY);
-//        String country = getArguments().getString(BreweryListActivity.COUNTRY_KEY);
+        String country = getArguments().getString(BreweryListActivity.COUNTRY_KEY);
+
+        String countryCode = countryNameToCode(country);
 
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendQueryParameter(PARAM_KEY, "c1ecd34119b27016f28060879cbc13e0")
                 .appendQueryParameter(PARAM_FORMAT, "json")
-                .appendQueryParameter(PARAM_COUNTRY, "US")
                 .build();
 
         if(city.length() != 0){
@@ -130,6 +130,11 @@ public class BreweriesFragment extends Fragment
         if(region.length() != 0){
             builtUri = builtUri.buildUpon()
                     .appendQueryParameter(PARAM_REGION, region)
+                    .build();
+        }
+        if(countryCode.length() != 0){
+            builtUri = builtUri.buildUpon()
+                    .appendQueryParameter(PARAM_COUNTRY, countryCode)
                     .build();
         }
 
@@ -164,5 +169,26 @@ public class BreweriesFragment extends Fragment
         startActivity(intent);
 
         Toast.makeText(getActivity(), "No Search Results", Toast.LENGTH_LONG).show();
+    }
+
+    private String countryNameToCode(String countryName){
+        String[] countriesFullData = getResources().getStringArray(R.array.country_data);
+        String twoDigitCode = null;
+
+        int i = 0;
+        while (twoDigitCode == null){
+            String countryString = countriesFullData[i];
+            if (countryString.contains(countryName)){
+                String[] country = countryString.split(" ");
+                int endOfArray = country.length;
+                twoDigitCode = country[endOfArray - 2];
+            }
+            i++;
+        }
+        if (twoDigitCode == null) {
+            return null;
+        }else{
+            return twoDigitCode;
+        }
     }
 }
