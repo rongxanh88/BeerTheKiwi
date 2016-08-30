@@ -35,6 +35,40 @@
             android:layout_marginTop="16dp"
             tools:text="Description"/>
 
+        <LinearLayout
+            android:id="@+id/brewery_location_view_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/brewery_detail_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:textColor="@color/colorHyperlink"
+                tools:text="123 Fake St. Denver CO"/>
+
+            <TextView
+                android:id="@+id/brewery_detail_latitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:textColor="@color/colorHyperlink"
+                tools:text="-50.34578"/>
+
+            <TextView
+                android:id="@+id/brewery_detail_longitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:textColor="@color/colorHyperlink"
+                tools:text="120.76123"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/brewery_website_detail_view"
             android:layout_width="wrap_content"
@@ -42,7 +76,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
-            android:textColor="#2196F3"
+            android:textColor="@color/colorHyperlink"
             tools:text="Website"/>
 
         <TextView

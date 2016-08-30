@@ -27,6 +27,7 @@ import nguyenbao.beerthekiwi.BreweryObjects.BreweryLocation;
 public class FetchBreweryData {
 
     private static final String LOG_TAG = FetchBreweryData.class.getName();
+    public static final double INVALID_VALUE = 1000.0;
 
     private FetchBreweryData() {
         //empty constructor so this cannot be instatiated
@@ -72,8 +73,8 @@ public class FetchBreweryData {
                 String region = "";
                 String postalCode = "";
                 String countryName = "";
-                double longitude = 0.0;
-                double latitude = 0.0;
+                double longitude = INVALID_VALUE;
+                double latitude = INVALID_VALUE;
 
                 //grab object at position i
                 JSONObject brewery = data.getJSONObject(i);

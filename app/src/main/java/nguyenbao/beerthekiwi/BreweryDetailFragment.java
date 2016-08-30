@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.io.InputStream;
 
 import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
@@ -60,8 +62,41 @@ public class BreweryDetailFragment extends Fragment {
         TextView breweryDescription = (TextView)rootview.findViewById(R.id.brewery_description_detail_view);
         breweryDescription.setText(selectedBrewery.getDescription());
 
-        final TextView breweryWebsite = (TextView)rootview.findViewById(R.id.brewery_website_detail_view);
-        breweryWebsite.setText(selectedBrewery.getWebsite());
+        //Viewgroup for location
+        String address = selectedBrewery.getBreweryLocation().getStreetAddress();
+        String locality = selectedBrewery.getBreweryLocation().getLocality();
+        String region = selectedBrewery.getBreweryLocation().getRegion();
+        double latitude = selectedBrewery.getBreweryLocation().getLatitude();
+        double longitude = selectedBrewery.getBreweryLocation().getLongitude();
+        double invalid = FetchBreweryData.INVALID_VALUE;
+
+        String firstCardinal;
+        if (latitude >= 0){
+            firstCardinal = "N";
+        }else{
+            firstCardinal = "S";
+        }
+        String secondCardinal;
+        if (longitude >= 0){
+            secondCardinal = "E";
+        }else{
+            secondCardinal = "W";
+        }
+
+        TextView breweryAddress = (TextView)rootview.findViewById(R.id.brewery_detail_address);
+        if (address.length() > 0){
+            breweryAddress.setText("Location: \n" + address + " " + locality + " " + region);
+        }
+        else if ((longitude != invalid) && (latitude != invalid)){
+            TextView breweryLatitude = (TextView)rootview.findViewById(R.id.brewery_detail_latitude);
+            breweryLatitude.setText("" + latitude + firstCardinal);
+
+            TextView breweryLongitude = (TextView)rootview.findViewById(R.id.brewery_detail_longitude);
+            breweryLongitude.setText("" + longitude + secondCardinal);
+        }
+
+        TextView breweryWebsite = (TextView)rootview.findViewById(R.id.brewery_website_detail_view);
+        breweryWebsite.setText("Website: " + selectedBrewery.getWebsite());
         breweryWebsite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
