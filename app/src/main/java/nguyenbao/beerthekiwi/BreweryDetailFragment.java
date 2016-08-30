@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
 public class BreweryDetailFragment extends Fragment {
 
     private static final String LOG_TAG = BreweryDetailFragment.class.getName();
+    private static final String BASE_GEO_URI = "geo:";
 
     public BreweryDetailFragment() {
         // Required empty public constructor
@@ -39,12 +41,8 @@ public class BreweryDetailFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_brewery_detail, container, false);
         setHasOptionsMenu(true);
 
-        String jsonBrewery = "";
         Bundle extras = getArguments();
-        if (extras != null) {
-            jsonBrewery = extras.getString(BreweriesFragment.GSON_BREWERY);
-        }
-        final Brewery selectedBrewery = new Gson().fromJson(jsonBrewery, Brewery.class);
+        final Brewery selectedBrewery = getBrewery(extras);
 
         String imageUrl = selectedBrewery.getImages().getLargeUrl();
         if (imageUrl != null) {
@@ -56,18 +54,15 @@ public class BreweryDetailFragment extends Fragment {
             iconView.setImageResource(R.mipmap.ic_launcher);//placeholder
         }
 
-        TextView breweryName = (TextView)rootview.findViewById(R.id.brewery_name_detail_view);
+        final TextView breweryName = (TextView)rootview.findViewById(R.id.brewery_name_detail_view);
         breweryName.setText(selectedBrewery.getName());
 
         TextView breweryDescription = (TextView)rootview.findViewById(R.id.brewery_description_detail_view);
         breweryDescription.setText(selectedBrewery.getDescription());
 
         //Viewgroup for location
-        String address = selectedBrewery.getBreweryLocation().getStreetAddress();
-        String locality = selectedBrewery.getBreweryLocation().getLocality();
-        String region = selectedBrewery.getBreweryLocation().getRegion();
-        double latitude = selectedBrewery.getBreweryLocation().getLatitude();
-        double longitude = selectedBrewery.getBreweryLocation().getLongitude();
+        final double latitude = selectedBrewery.getBreweryLocation().getLatitude();
+        final double longitude = selectedBrewery.getBreweryLocation().getLongitude();
         double invalid = FetchBreweryData.INVALID_VALUE;
 
         String firstCardinal;
@@ -82,6 +77,27 @@ public class BreweryDetailFragment extends Fragment {
         }else{
             secondCardinal = "W";
         }
+
+        final String address = selectedBrewery.getBreweryLocation().getStreetAddress();
+        final String locality = selectedBrewery.getBreweryLocation().getLocality();
+        final String region = selectedBrewery.getBreweryLocation().getRegion();
+
+        ViewGroup locationView = (ViewGroup)rootview.findViewById(R.id.brewery_location_view_group);
+        locationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String brewery = selectedBrewery.getName();
+                Uri locationByCoord = Uri.parse(BASE_GEO_URI + latitude + "," + longitude + "?")
+                        .buildUpon()
+                        .appendQueryParameter("q", address + ", " + locality + ", " + region + "(" + brewery + ")")
+                        .build();
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, locationByCoord);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
 
         TextView breweryAddress = (TextView)rootview.findViewById(R.id.brewery_detail_address);
         if (address.length() > 0){
@@ -114,6 +130,14 @@ public class BreweryDetailFragment extends Fragment {
         breweryDateOfEstablishment.setText("Established: " + selectedBrewery.getDateOfEstablishment());
 
         return rootview;
+    }
+
+    private Brewery getBrewery (Bundle extras){
+        String jsonBrewery = "";
+        if (extras != null) {
+            jsonBrewery = extras.getString(BreweriesFragment.GSON_BREWERY);
+        }
+        return new Gson().fromJson(jsonBrewery, Brewery.class);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
