@@ -3,7 +3,6 @@ package nguyenbao.beerthekiwi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 import nguyenbao.beerthekiwi.BreweryObjects.Brewery;
@@ -49,7 +47,7 @@ public class BreweryListAdapter extends ArrayAdapter<Brewery> {
                     .execute(iconUrl);
         }else{
             ImageView iconView = (ImageView) listItemView.findViewById(R.id.list_item_icon);
-            iconView.setImageResource(R.mipmap.ic_launcher);//placeholder
+            iconView.setVisibility(View.INVISIBLE);
         }
 
         //find and set all views in layout

@@ -51,7 +51,7 @@ public class BreweryDetailFragment extends Fragment {
                     .execute(imageUrl);
         }else{
             ImageView iconView = (ImageView) rootview.findViewById(R.id.brewery_detail_image);
-            iconView.setImageResource(R.mipmap.ic_launcher);//placeholder
+            iconView.setVisibility(View.GONE);
         }
 
         final TextView breweryName = (TextView)rootview.findViewById(R.id.brewery_name_detail_view);
