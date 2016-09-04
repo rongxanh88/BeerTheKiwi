@@ -7,6 +7,7 @@
     <string name="hint_country">Country</string>
     <string name="default_country">United States</string>
     <string name="search">Search</string>
+    <string name="share_chooser">Share</string>
 
     <string-array name="country_data">
         <item>
