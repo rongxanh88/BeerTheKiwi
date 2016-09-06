@@ -30,7 +30,7 @@ public class FetchBreweryData {
     public static final double INVALID_VALUE = 1000.0;
 
     private FetchBreweryData() {
-        //empty constructor so this cannot be instatiated
+        //empty constructor so this cannot be instantiated
     }
 
     public static ArrayList<Brewery> fetchBreweryData(String requestUrl) {
